@@ -10,6 +10,7 @@ connectDB();
 
 const app = express();
 
+// Allow frontend requests
 app.use(cors());
 
 app.use(express.json());
