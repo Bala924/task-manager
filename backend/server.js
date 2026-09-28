@@ -10,9 +10,16 @@ connectDB();
 
 const app = express();
 
+const allowedOrigins = [
+    "http://localhost:5173",
+    "https://task-manager-sigma-woad-81.vercel.app"
+];
+
 app.use(
     cors({
-        origin: "http://localhost:5173"
+        origin: allowedOrigins,
+        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        allowedHeaders: ["Content-Type", "Authorization"]
     })
 );
 
@@ -24,9 +31,15 @@ app.get("/", (req, res) => {
     });
 });
 
-app.use("/api/auth", require("./routes/authRoutes"));
+app.use(
+    "/api/auth",
+    require("./routes/authRoutes")
+);
 
-app.use("/api/tasks", require("./routes/taskRoutes"));
+app.use(
+    "/api/tasks",
+    require("./routes/taskRoutes")
+);
 
 const PORT = process.env.PORT || 5000;
 
